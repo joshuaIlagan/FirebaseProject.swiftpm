@@ -19,10 +19,14 @@ struct LakersView: View {
     
     
     var body: some View {
-        TextField("Player", text: $teamName)
-        Button("Add Entry") {
-            
-            
+        VStack{
+        TextField("Team", text: $teamName)
+        TextField("Player", text: $PlayerName)
+        TextField("Number", text: $PlayerNumber)
+            Button("Add Entry") {
+                var dict = [PlayerName : PlayerNumber]
+                database.child(teamName).setValue(dict)
+            }
         }
     }
 }
