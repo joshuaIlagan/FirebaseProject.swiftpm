@@ -25,7 +25,7 @@ struct LakersView: View {
         TextField("Number", text: $PlayerNumber)
             Button("Add Entry") {
                 var dict = [PlayerName : PlayerNumber]
-                database.child(teamName).setValue(dict)
+                database.child(teamName).childByAutoId().setValue(dict)
             }
         }
     }
