@@ -5,7 +5,6 @@
 //  Created by Andres E. Lopez on 10/26/23.
 //
 
-import Foundation
 import SwiftUI
 import FirebaseDatabase
 
@@ -20,15 +19,19 @@ struct BullsView: View {
     
     
     var body: some View {
-        TextField("Player", text: $teamName)
-        Button("Add Entry") {
-            
-            
+        VStack{
+        TextField("Team", text: $teamName)
+        TextField("Player", text: $PlayerName)
+        TextField("Number", text: $PlayerNumber)
+            Button("Add Entry") {
+                var dict = [PlayerName : PlayerNumber]
+                database.child(teamName).setValue(dict)
+            }
         }
     }
 }
 
-struct BullsView_Previews: PreviewProvider {
+struct BullssView_Previews: PreviewProvider {
     static var previews: some View {
         BullsView()
     }
