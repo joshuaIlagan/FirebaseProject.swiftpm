@@ -9,25 +9,9 @@ import SwiftUI
 import FirebaseDatabase
 
 struct BullsView: View {
-    
-    
-    let database = Database.database().reference()
-    @State var teamName = ""
-    @State var PlayerName = ""
-    @State var PlayerNumber = ""
-    
-    
-    
+
     var body: some View {
-        VStack{
-        TextField("Team", text: $teamName)
-        TextField("Player", text: $PlayerName)
-        TextField("Number", text: $PlayerNumber)
-            Button("Add Entry") {
-                var dict = [PlayerName : PlayerNumber]
-                database.child(teamName).setValue(dict)
-            }
-        }
+       Text("test")
     }
 }
 

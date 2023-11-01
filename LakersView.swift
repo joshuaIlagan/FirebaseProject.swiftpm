@@ -11,28 +11,57 @@ import FirebaseDatabase
 struct LakersView: View {
     
     
-    let database = Database.database().reference()
-    @State var teamName = ""
-    @State var PlayerName = ""
-    @State var PlayerNumber = ""
+    @State private var players: [Player] = [] // Player struct is defined as per your previous code
+       let predeterminedTeamName = "Lakers" // Set your predetermined team name
+    
     
     
     
     var body: some View {
-        VStack{
-        TextField("Team", text: $teamName)
-        TextField("Player", text: $PlayerName)
-        TextField("Number", text: $PlayerNumber)
-            Button("Add Entry") {
-                var dict = [PlayerName : PlayerNumber]
-                database.child(teamName).childByAutoId().setValue(dict)
+        VStack {
+            List(playersForPredeterminedTeam()) { player in
+                VStack(alignment: .leading) {
+                    Text("Name: \(player.name)")
+                    Text("Number: \(player.number)")
+                }
             }
         }
+        .onAppear {
+            fetchPlayers()
+        }
     }
+    
+    func fetchPlayers() {
+            let playersRef = Database.database().reference().child("players")
+
+            playersRef.observeSingleEvent(of: .value) { snapshot in
+                if let playerData = snapshot.value as? [String: [String: Any]] {
+                    self.players = playerData.compactMap { (key, value) in
+                        guard let name = value["name"] as? String,
+                              let number = value["number"] as? Int,
+                              let teamName = value["teamName"] as? String else {
+                            return nil
+                        }
+                        return Player(id: key, name: name, number: number, teamName: teamName)
+                    }
+                    print("Fetched players: \(self.players)")
+                } else {
+                    self.players = []
+                }
+            }
+        }
+
+        func playersForPredeterminedTeam() -> [Player] {
+            return players.filter { $0.teamName == predeterminedTeamName }
+        }
+    
 }
 
-struct LakersView_Previews: PreviewProvider {
-    static var previews: some View {
-        LakersView()
+
+
+
+    struct LakersView_Previews: PreviewProvider {
+        static var previews: some View {
+            LakersView()
+        }
     }
-}
