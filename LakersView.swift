@@ -24,8 +24,10 @@ struct LakersView: View {
                     Text("Name: \(player.name)")
                     Text("Number: \(player.number)")
                 }
+                    
             }
         }
+        
         .onAppear {
             fetchPlayers()
         }
@@ -34,6 +36,7 @@ struct LakersView: View {
     func fetchPlayers() {
             let playersRef = Database.database().reference().child("players")
 
+        
             playersRef.observeSingleEvent(of: .value) { snapshot in
                 if let playerData = snapshot.value as? [String: [String: Any]] {
                     self.players = playerData.compactMap { (key, value) in
