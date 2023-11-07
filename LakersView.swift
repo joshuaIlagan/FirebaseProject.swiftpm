@@ -20,9 +20,13 @@ struct LakersView: View {
     var body: some View {
         VStack {
             List(playersForPredeterminedTeam()) { player in
-                VStack(alignment: .leading) {
-                    Text("Name: \(player.name)")
-                    Text("Number: \(player.number)")
+                ScrollView{
+                    VStack(alignment: .leading) {
+                        Text("Name: \(player.name)")
+                            .font(.system(size: 14))
+                        Text("Number: \(player.number)")
+                            .font(.system(size: 14))
+                    }
                 }
             }
         }
