@@ -21,7 +21,7 @@ struct LakersView: View {
     var body: some View {
         Color.yellow
                 .ignoresSafeArea()
-                .blendMode(.multiply)// Ignore just for the color
+                .blendMode(.multiply)
                 .overlay(
         VStack{
             Image("lakers")
