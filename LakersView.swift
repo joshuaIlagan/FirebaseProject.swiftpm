@@ -38,7 +38,7 @@ struct LakersView: View {
                 if let playerData = snapshot.value as? [String: [String: Any]] {
                     self.players = playerData.compactMap { (key, value) in
                         guard let name = value["name"] as? String,
-                              let number = value["number"] as? Int,
+                              let number = value["number"] as? String,
                               let teamName = value["teamName"] as? String else {
                             return nil
                         }

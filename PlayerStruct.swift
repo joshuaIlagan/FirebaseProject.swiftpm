@@ -11,6 +11,6 @@ import SwiftUI
 struct Player: Identifiable {
     var id: String
     var name: String
-    var number: Int
+    var number: String
     var teamName : String
 }
